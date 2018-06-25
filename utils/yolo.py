@@ -218,6 +218,7 @@ def draw_detection(im, bboxes, scores, cls_inds, cfg, thr=0.3):
     imgcv = np.copy(im)
     h, w, _ = imgcv.shape
     for i, box in enumerate(bboxes):
+        print(scores[i], thr)
         if scores[i] < thr:
             continue
         cls_indx = cls_inds[i]

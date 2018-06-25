@@ -22,18 +22,15 @@ args = parser.parse_args()
 # hyper-parameters
 # ------------
 imdb_name = cfg.imdb_test
-# trained_model = cfg.trained_model
-trained_model = os.path.join(cfg.train_output_dir,
-                             'darknet19_pebbles1_159.h5')
 output_dir = cfg.test_output_dir
 
 max_per_image = 300
-thresh = 0.01
-vis = False
+thresh = 0.1
+vis = True 
 # ------------
 
 
-def test_net(net, imdb, max_per_image=300, thresh=0.5, vis=False):
+def test_net(net, imdb, max_per_image=300, thresh=0.01, vis=False):
     num_images = imdb.num_images
 
     # all detections are collected into:
@@ -48,6 +45,7 @@ def test_net(net, imdb, max_per_image=300, thresh=0.5, vis=False):
     size_index = args.image_size_index
 
     for i in range(num_images):
+        print("iiiiiiiiii", i)
 
         batch = imdb.next_batch(size_index=size_index)
         ori_im = batch['origin_im'][0]
@@ -103,17 +101,19 @@ def test_net(net, imdb, max_per_image=300, thresh=0.5, vis=False):
             _t['misc'].clear()
 
         if vis:
+            print('bboxes', bboxes)
+            print('scores', scores)
+            print('cls_inds', cls_inds)
             im2show = yolo_utils.draw_detection(ori_im,
                                                 bboxes,
                                                 scores,
                                                 cls_inds,
                                                 cfg,
-                                                thr=0.1)
+                                                thr=0.50)
             if im2show.shape[0] > 1100:
                 im2show = cv2.resize(im2show,
                                      (int(1000. * float(im2show.shape[1]) / im2show.shape[0]), 1000))  # noqa
-            cv2.imshow('test', im2show)
-            cv2.waitKey(0)
+            cv2.imwrite('test_%02d.png' % i, im2show)
 
     with open(det_file, 'wb') as f:
         pickle.dump(all_boxes, f, pickle.HIGHEST_PROTOCOL)
@@ -125,12 +125,12 @@ def test_net(net, imdb, max_per_image=300, thresh=0.5, vis=False):
 if __name__ == '__main__':
     # data loader
     imdb = VOCDataset(imdb_name, cfg.DATA_DIR, cfg.batch_size,
-                      yolo_utils.preprocess_test,
+                      yolo_utils.preprocess_test, cfg.label_names,
                       processes=1, shuffle=False, dst_size=cfg.multi_scale_inp_size)
 
     net = Darknet19()
-    print(trained_model)
-    net_utils.load_net(trained_model, net)
+    print(cfg.trained_model)
+    net_utils.load_net(cfg.trained_model, net)
 
     net.cuda()
     net.eval()

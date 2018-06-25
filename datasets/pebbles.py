@@ -14,11 +14,12 @@ from .voc_eval import voc_eval
 
 
 class VOCDataset(ImageDataset):
-    def __init__(self, imdb_name, datadir, batch_size, im_processor,
+    def __init__(self, imdb_name, datadir, batch_size, im_processor, classes,
                  processes=3, shuffle=True, dst_size=None):
         super(VOCDataset, self).__init__(imdb_name, datadir, batch_size,
                                          im_processor, processes,
                                          shuffle, dst_size)
+        print(imdb_name)
         meta = imdb_name.split('_')
         self._year = meta[1]
         self._image_set = meta[2]
@@ -29,7 +30,7 @@ class VOCDataset(ImageDataset):
         assert os.path.exists(self._data_path), \
             'Path does not exist: {}'.format(self._data_path)
 
-        self._classes = ('black', 'blue', 'green', 'yellow', 'red', 'pink', 'white')
+        self._classes = classes
         self._class_to_ind = dict(list(zip(self.classes,
                                            list(range(self.num_classes)))))
         self._image_ext = '.jpg'

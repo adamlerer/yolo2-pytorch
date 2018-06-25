@@ -1,12 +1,12 @@
-exp_name = 'darknet19_pebbles1'
+exp_name = 'darknet19_2007_pebbles1'
 
 pretrained_fname = 'darknet19.weights.npz'
 
 start_step = 0
-lr_decay_epochs = {60, 90}
+lr_decay_epochs = {600, 900}
 lr_decay = 1./10
 
-max_epoch = 160
+max_epoch = 1600
 
 weight_decay = 0.0005
 momentum = 0.9
@@ -20,7 +20,7 @@ coord_scale = 1.
 iou_thresh = 0.6
 
 # dataset
-imdb_train = 'voc_2007_trainval'
+imdb_train = 'pebbles_2007_trainval'
 imdb_test = 'voc_2007_test'
 batch_size = 1
-train_batch_size = 2
+train_batch_size = 4

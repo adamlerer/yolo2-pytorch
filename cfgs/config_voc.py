@@ -3,14 +3,16 @@ import numpy as np
 
 # trained model
 # h5_fname = 'yolo-voc.weights.h5'
-h5_fname = 'training/darknet19_pebbles1/darknet19_pebbles1_159.h5'
+# h5_fname = 'training/darknet19_pebbles1/darknet19_pebbles1_159.h5'
+h5_fname = 'training/darknet19_2007_pebbles1/darknet19_2007_pebbles1_780.h5'
 
 # VOC
-label_names = ('aeroplane', 'bicycle', 'bird', 'boat',
-               'bottle', 'bus', 'car', 'cat', 'chair',
-               'cow', 'diningtable', 'dog', 'horse',
-               'motorbike', 'person', 'pottedplant',
-               'sheep', 'sofa', 'train', 'tvmonitor')
+# label_names = ('aeroplane', 'bicycle', 'bird', 'boat',
+#                'bottle', 'bus', 'car', 'cat', 'chair',
+#                'cow', 'diningtable', 'dog', 'horse',
+#                'motorbike', 'person', 'pottedplant',
+#                'sheep', 'sofa', 'train', 'tvmonitor')
+label_names = ('black', 'blue', 'green', 'yellow', 'red', 'pink', 'white')
 num_classes = len(label_names)
 
 anchors = np.asarray([(1.08, 1.19), (3.42, 4.41),

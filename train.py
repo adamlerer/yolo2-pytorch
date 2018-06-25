@@ -19,7 +19,8 @@ except ImportError:
 
 # data loader
 imdb = VOCDataset(cfg.imdb_train, cfg.DATA_DIR, cfg.train_batch_size,
-                  yolo_utils.preprocess_train, processes=2, shuffle=True,
+                  yolo_utils.preprocess_train, cfg.label_names,
+                  processes=2, shuffle=True,
                   dst_size=cfg.multi_scale_inp_size)
 # dst_size=cfg.inp_size)
 print('load data succ...')
