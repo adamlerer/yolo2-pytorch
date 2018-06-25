@@ -8,7 +8,7 @@ from darknet import Darknet19
 import utils.yolo as yolo_utils
 import utils.network as net_utils
 from utils.timer import Timer
-from datasets.pascal_voc import VOCDataset
+from datasets.pebbles import VOCDataset
 import cfgs.config as cfg
 
 
@@ -24,7 +24,7 @@ args = parser.parse_args()
 imdb_name = cfg.imdb_test
 # trained_model = cfg.trained_model
 trained_model = os.path.join(cfg.train_output_dir,
-                             'darknet19_voc07trainval_exp3_73.h5')
+                             'darknet19_pebbles1_159.h5')
 output_dir = cfg.test_output_dir
 
 max_per_image = 300
@@ -129,6 +129,7 @@ if __name__ == '__main__':
                       processes=1, shuffle=False, dst_size=cfg.multi_scale_inp_size)
 
     net = Darknet19()
+    print(trained_model)
     net_utils.load_net(trained_model, net)
 
     net.cuda()

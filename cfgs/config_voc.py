@@ -2,7 +2,8 @@ import numpy as np
 
 
 # trained model
-h5_fname = 'yolo-voc.weights.h5'
+# h5_fname = 'yolo-voc.weights.h5'
+h5_fname = 'training/darknet19_pebbles1/darknet19_pebbles1_159.h5'
 
 # VOC
 label_names = ('aeroplane', 'bicycle', 'bird', 'boat',

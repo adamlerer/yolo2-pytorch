@@ -4,7 +4,7 @@ import datetime
 
 from darknet import Darknet19
 
-from datasets.pascal_voc import VOCDataset
+from datasets.pebbles import VOCDataset
 import utils.yolo as yolo_utils
 import utils.network as net_utils
 from utils.timer import Timer
@@ -56,6 +56,7 @@ cnt = 0
 t = Timer()
 step_cnt = 0
 size_index = 0
+print(start_epoch, imdb.batch_per_epoch, cfg.max_epoch)
 for step in range(start_epoch * imdb.batch_per_epoch,
                   cfg.max_epoch * imdb.batch_per_epoch):
     t.tic()
